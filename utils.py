@@ -14,7 +14,7 @@ from torchvision import transforms
 from moco.loader import GaussianBlur
 import numpy as np
 from spm import ShufflePatchMix, ShufflePatchMix_l, JigsawPuzzle, JigsawPuzzle_l, ShufflePatchMix_all, ShufflePatchMix_l_all
-from spm import ShufflePatchMixOverlap, ShufflePatchMixOverlap_l, ShufflePatchMixOverlap_all, ShufflePatchMixOverlap_l_all,SAM2
+from spm import ShufflePatchMixOverlap, ShufflePatchMixOverlap_l, ShufflePatchMixOverlap_all, ShufflePatchMixOverlap_l_all
 
 LOG_FORMAT = "[%(levelname)s] %(asctime)s %(filename)s:%(lineno)s %(message)s"
 LOG_DATEFMT = "%Y-%m-%d %H:%M:%S"
