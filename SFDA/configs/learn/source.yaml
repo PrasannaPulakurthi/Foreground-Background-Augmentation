@@ -1,0 +1,8 @@
+# loop logistics
+epochs: 10
+start_epoch: 0
+eval_interval: 1
+print_freq: 50
+
+# loss
+epsilon: 0.1

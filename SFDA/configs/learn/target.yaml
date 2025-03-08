@@ -1,0 +1,33 @@
+# loop logistics
+epochs: 30
+iterations: 2000
+start_epoch: 0
+print_freq: 50
+
+# loss
+contrast_type: "class_aware"
+ce_type: "standard" # ["standard", "symmetric", "smoothed", "soft"]
+lambda_cls: 1.0
+lambda_ins: 1.0
+lambda_div: 1.0
+negative_aug: false
+reweighting: false
+schedule: [250, 750]
+reweighting_type: "cm_exp_m" #[m, c ,mc , cm_exp_m, 3_m_c_3]
+
+# algo-related stuff
+aug_versions: "wss" # ["w", "ws", "wss", "ss", "wssn"]
+dist_type: "cosine" # ["cosine", "euclidean"]
+ce_sup_type: "weak_strong" # ["weak_all", "weak_weak", "weak_strong", "self_all"]
+refine_method: "nearest_neighbors"
+num_neighbors: 3
+queue_size: -1
+epoch_labeling: false
+
+# If shuffle_patch_mix
+change_alpha: true
+alpha_spm: 8.0
+alpha_spm_end: 0.0
+beta_spm: 2.0
+patch_height: 28
+mix_prob: 0.8
