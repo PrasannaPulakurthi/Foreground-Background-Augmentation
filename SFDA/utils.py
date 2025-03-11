@@ -14,6 +14,7 @@ from torchvision import transforms
 from moco.loader import GaussianBlur
 import numpy as np
 from augmentations import JigsawPuzzle, JigsawPuzzle_l, JigsawPuzzle_all
+from random_erasing import RandomErasing
 
 LOG_FORMAT = "[%(levelname)s] %(asctime)s %(filename)s:%(lineno)s %(message)s"
 LOG_DATEFMT = "%Y-%m-%d %H:%M:%S"
@@ -299,6 +300,7 @@ class DualTransform:
                 transforms.RandomGrayscale(p=0.2),
                 transforms.RandomApply([GaussianBlur([0.1, 2.0])], p=0.5),
                 transforms.RandomHorizontalFlip(),
+                RandomErasing(),
                 transforms.ToTensor(),
                 normalize,
             ]
