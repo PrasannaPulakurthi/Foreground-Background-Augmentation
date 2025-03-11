@@ -13,8 +13,8 @@ from torchvision import transforms
 
 from moco.loader import GaussianBlur
 import numpy as np
-from augmentations import JigsawPuzzle, JigsawPuzzle_l, JigsawPuzzle_all
-from random_erasing import RandomErasing
+from augmentations import JigsawPuzzle, JigsawPuzzle_l, JigsawPuzzle_all, RandomErasing
+
 
 LOG_FORMAT = "[%(levelname)s] %(asctime)s %(filename)s:%(lineno)s %(message)s"
 LOG_DATEFMT = "%Y-%m-%d %H:%M:%S"
