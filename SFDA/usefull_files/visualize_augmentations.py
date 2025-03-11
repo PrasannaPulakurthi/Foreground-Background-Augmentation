@@ -33,23 +33,13 @@ def unnormalize(tensor, mean, std):
 def get_augmentation_versions_patches(name):
     transform_list = [
         get_augmentation("test"),
-        get_augmentation(name, alpha=4.0, beta=2.0, patch_height=112), # 2x2
-        get_augmentation(name, alpha=4.0, beta=2.0, patch_height=56), # 4x4
-        get_augmentation(name, alpha=4.0, beta=2.0, patch_height=28), # 8x8
-        get_augmentation(name, alpha=4.0, beta=2.0, patch_height=14), # 16x16
-        get_augmentation(name, alpha=4.0, beta=2.0, patch_height=7), # 32x32
+        get_augmentation("mask"),
+        get_augmentation("jigsaw", patch_height=28, mix_prob=1),
+        get_augmentation("ours_1", patch_height=28, mix_prob=1),
+        get_augmentation("ours", alpha=4.0, beta=2.0, patch_height=28, mix_prob=1), # 8x8
     ]
     return NCropsTransform(transform_list)
 
-def get_augmentation_versions_a(name):
-    transform_list = [
-        get_augmentation("test"),
-        get_augmentation(name, alpha=16.0, beta=2.0, patch_height=56), 
-        get_augmentation(name, alpha=8.0, beta=2.0, patch_height=56), 
-        get_augmentation(name, alpha=4.0, beta=2.0, patch_height=56), 
-        get_augmentation(name, alpha=2.0, beta=2.0, patch_height=56), 
-    ]
-    return NCropsTransform(transform_list)
 
 def main(train_transform, folder_name):
     # Check if the folder exists; if not, create it
@@ -57,11 +47,11 @@ def main(train_transform, folder_name):
         os.makedirs(f"output/visualize/{folder_name}")
 
     # Example usage with the specified replacements
-    image_root = 'datasets/domainnet-126'  # Replace args.data.image_root
+    image_root = 'datasets/PACS'  # Replace args.data.image_root
     pseudo_item_list = None  # Replace pseudo_item_list
     batch_size = 1  # Replace args.data.batch_size
     num_workers = 1  # Replace args.data.workers
-    label_file = 'datasets/domainnet-126/visualize_list.txt'
+    label_file = 'datasets/PACS/photo_list.txt'
 
     # Training data
     train_dataset = ImageList(
@@ -74,7 +64,7 @@ def main(train_transform, folder_name):
     train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
-        shuffle=False,
+        shuffle=True,
         num_workers=num_workers,
         pin_memory=True,
         sampler=train_sampler,
@@ -90,54 +80,17 @@ def main(train_transform, folder_name):
         images, _, idxs = data
         images = [unnormalize(img.cpu(), mean, std) for img in images]
         # Iterate over each image and save it with the index as the filename
-        for i, image in enumerate(images):
+        for j, image in enumerate(images):
             # Move the image tensor to CUDA and save it with the index as the filename
             image = image.to("cuda")
-            save_image(image, f"output/visualize/{folder_name}/image_{i}.png")
+            save_image(image, f"output/visualize/{folder_name}/image_{i}_{j}.png")
+        if i>50:
+            break
 
 if __name__ == '__main__':
     # Set seed for reproducibility
-    set_seed(42)
-
-    # Different PatchMix strength
-    train_transform = get_augmentation_versions_a("spm")
-    main(train_transform,"strength_spm")
-
-    train_transform = get_augmentation_versions_a("spm_o")
-    main(train_transform,"strength_spm_o")
-
-    quit()
+    set_seed(69)
 
     # Different patch sizes
-    train_transform = get_augmentation_versions_patches("spm")
-    main(train_transform,"spm")
-
-    train_transform = get_augmentation_versions_patches("spm_l")
-    main(train_transform,"spm_l")
-
-    train_transform = get_augmentation_versions_patches("spm_o")
-    main(train_transform,"spm_o")
-
-    train_transform = get_augmentation_versions_patches("spm_o_l")
-    main(train_transform,"spm_o_l")
-    
-    train_transform = get_augmentation_versions_patches("jigsaw")
-    main(train_transform,"jigsaw")
-    
-    train_transform = get_augmentation_versions_patches("jigsaw_l")
-    main(train_transform,"jigsaw_l")
-    
-    train_transform = get_augmentation_versions_patches("shuffle_patch_mix")
-    main(train_transform,"shuffle_patch_mix")
-
-    train_transform = get_augmentation_versions_patches("shuffle_patch_mix_l")
-    main(train_transform,"shuffle_patch_mix_l")
-
-    train_transform = get_augmentation_versions_patches("shuffle_patch_mix_o")
-    main(train_transform,"shuffle_patch_mix_o")
-
-    train_transform = get_augmentation_versions_patches("shuffle_patch_mix_o_l")
-    main(train_transform,"shuffle_patch_mix_o_l")
-
-    train_transform = get_augmentation_versions_patches("moco-v2")
-    main(train_transform,"moco-v2")
+    train_transform = get_augmentation_versions_patches("ours")
+    main(train_transform,"ours")
