@@ -13,7 +13,7 @@ from torchvision import transforms
 
 from moco.loader import GaussianBlur
 import numpy as np
-from augmentations import JigsawPuzzle, JigsawPuzzle_l, JigsawPuzzle_all, RandomErasing, RandomPatchNoise
+from augmentations import JigsawPuzzle, JigsawPuzzle_l, JigsawPuzzle_all, RandomErasing, RandomPatchNoise, RandomPatchErase
 
 
 LOG_FORMAT = "[%(levelname)s] %(asctime)s %(filename)s:%(lineno)s %(message)s"
@@ -230,6 +230,17 @@ def get_augmentation(aug_type, alpha=8.0, beta=2.0, patch_height=28, mix_prob=0.
                 normalize,
             ]
         )
+    elif aug_type == "jigsaw_all":
+        image_aug =  transforms.Compose(
+            [
+                transforms.Resize((256, 256)),
+                transforms.CenterCrop(224),
+                # transforms.RandomHorizontalFlip(),
+                JigsawPuzzle_all(patch_height=patch_height, patch_width=patch_height, mix_prob=1),
+                transforms.ToTensor(),
+                normalize,
+            ]
+        )
     elif aug_type == "jigsaw_l":
         image_aug = transforms.Compose(
             [
@@ -304,7 +315,8 @@ class DualTransform:
                 transforms.RandomApply([GaussianBlur([0.1, 2.0])], p=0.5),
                 transforms.RandomHorizontalFlip(),
                 # RandomErasing(mode='soft_pixel'),
-                RandomPatchNoise(patch_height,patch_width,mix_prob),
+                RandomPatchNoise(patch_height, patch_width, mix_prob),
+                RandomPatchErase(patch_height, patch_width, mix_prob),
                 transforms.ToTensor(),
                 normalize,
             ]

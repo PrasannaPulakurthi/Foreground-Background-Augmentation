@@ -148,10 +148,7 @@ class JigsawPuzzle():
     
 class JigsawPuzzle_all():
     def __init__(self, patch_height, patch_width, mix_prob=0.8):
-        patch_height_options = [14, 28, 56, 112]
-        random_number = np.random.randint(1, len(patch_height_options))
-        self.patch_height = patch_height_options[random_number]
-        self.patch_width = patch_height_options[random_number] 
+        self.patch_height_options = [14, 28, 56, 112]
         self.mix_prob = mix_prob
 
     def __call__(self, img):
@@ -159,6 +156,10 @@ class JigsawPuzzle_all():
             return img
         img_np = np.array(img)
         h, w, c = img_np.shape
+
+        random_number = np.random.randint(1, len(self.patch_height_options))
+        self.patch_height = self.patch_height_options[random_number]
+        self.patch_width = self.patch_height_options[random_number] 
         num_patches_h = h // self.patch_height
         num_patches_w = w // self.patch_width
         N = num_patches_h * num_patches_w
@@ -266,6 +267,47 @@ class RandomPatchNoise():
             return(img_patch)
         else:
             return(img_patch + 64*torch.empty((self.patch_height,self.patch_width,3), dtype=img_patch.dtype, device=img_patch.device).normal_())
+    
+    def __call__(self, img):
+        if torch.rand(1) > self.mix_prob:
+            return img
+        
+        img_tensor = torch.tensor(np.array(img))
+        img_tensor = img_tensor.to(torch.float32)
+        h, w, c = img_tensor.shape
+        num_patches_h = h // self.patch_height
+        num_patches_w = w // self.patch_width
+        N = num_patches_h * num_patches_w
+
+        # Create a list of patches
+        patches = []
+        for i in range(num_patches_h):
+            for j in range(num_patches_w):
+                start_h = i * self.patch_height
+                start_w = j * self.patch_width
+                img_tensor[start_h:start_h+self.patch_height, start_w:start_w+self.patch_width] = self.RPN(img_tensor[start_h:start_h+self.patch_height, start_w:start_w+self.patch_width])
+
+
+        # Convert tensor back to NumPy for PIL, ensuring values are in [0, 255]
+        img_np = img_tensor.cpu().numpy()  
+        img_np = np.clip(img_np, 0, 255).astype(np.uint8)
+        return Image.fromarray(img_np)
+    
+
+
+    
+class RandomPatchErase():
+    def __init__(self, patch_height, patch_width, mix_prob=1.0):
+        self.patch_height = patch_height
+        self.patch_width = patch_width
+        self.mix_prob = mix_prob
+
+    def RPN(self, img_patch, rpn_noise=0.25):
+        
+        if  torch.rand(1) > rpn_noise:
+            return(img_patch)
+        else:
+            return(torch.zeros((1, 1, 3), dtype=img_patch.dtype, device=img_patch.device))
     
     def __call__(self, img):
         if torch.rand(1) > self.mix_prob:
