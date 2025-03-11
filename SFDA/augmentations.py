@@ -5,49 +5,22 @@ import random
 import math
 
 
-""" Random Erasing (Cutout)
-
-Originally inspired by impl at https://github.com/zhunzhong07/Random-Erasing, Apache 2.0
-Copyright Zhun Zhong & Liang Zheng
-
-Hacked together by / Copyright 2020 Ross Wightman
-"""
-
-def _get_pixels(per_pixel, rand_color, patch_size, dtype=torch.float32, device='cuda'):
-    # NOTE I've seen CUDA illegal memory access errors being caused by the normal_()
-    # paths, flip the order so normal is run on CPU if this becomes a problem
-    # Issue has been fixed in master https://github.com/pytorch/pytorch/issues/19508
-    if per_pixel:
-        return torch.empty(patch_size, dtype=dtype, device=device).normal_()
-    elif rand_color:
-        return torch.empty((patch_size[0], 1, 1), dtype=dtype, device=device).normal_()
+def _get_pixels(mode, patch_size, dtype=torch.float32, device='cuda',img_patch=None):
+    device=img_patch.device
+    if mode == 'rand':
+        return (128*torch.empty((patch_size[0], 1, 1), dtype=dtype, device=device).normal_())+128
+    elif mode == 'pixel':
+        return (128*torch.empty(patch_size, dtype=dtype, device=device).normal_())+128
+    elif mode == 'soft_pixel':
+        return(img_patch + 128*torch.empty(patch_size, dtype=dtype, device=device).normal_())
     else:
+        assert not mode or mode == 'const'
         return torch.zeros((patch_size[0], 1, 1), dtype=dtype, device=device)
 
-
 class RandomErasing:
-    """ Randomly selects a rectangle region in an image and erases its pixels.
-        'Random Erasing Data Augmentation' by Zhong et al.
-        See https://arxiv.org/pdf/1708.04896.pdf
-
-        This variant of RandomErasing is intended to be applied to either a batch
-        or single image tensor after it has been normalized by dataset mean and std.
-    Args:
-         probability: Probability that the Random Erasing operation will be performed.
-         min_area: Minimum percentage of erased area wrt input image area.
-         max_area: Maximum percentage of erased area wrt input image area.
-         min_aspect: Minimum aspect ratio of erased area.
-         mode: pixel color mode, one of 'const', 'rand', or 'pixel'
-            'const' - erase block is constant color of 0 for all channels
-            'rand'  - erase block is same per-channel random (normal) color
-            'pixel' - erase block is per-pixel random (normal) color
-        max_count: maximum number of erasing blocks per image, area per box is scaled by count.
-            per-image count is randomly chosen between 1 and this value.
-    """
-
     def __init__(
             self,
-            probability=1.0, min_area=0.02, max_area=1/3, min_aspect=0.3, max_aspect=None,
+            probability=0.5, min_area=0.02, max_area=1/3, min_aspect=0.3, max_aspect=None,
             mode='const', min_count=1, max_count=None, num_splits=0, device='cuda'):
         self.probability = probability
         self.min_area = min_area
@@ -57,15 +30,9 @@ class RandomErasing:
         self.min_count = min_count
         self.max_count = max_count or min_count
         self.num_splits = num_splits
-        mode = mode.lower()
+        self.mode = mode.lower()
         self.rand_color = False
         self.per_pixel = False
-        if mode == 'rand':
-            self.rand_color = True  # per block random normal
-        elif mode == 'pixel':
-            self.per_pixel = True  # per pixel random normal
-        else:
-            assert not mode or mode == 'const'
         self.device = device
 
     def _erase(self, img, chan, img_h, img_w, dtype):
@@ -85,13 +52,14 @@ class RandomErasing:
                     top = random.randint(0, img_h - h)
                     left = random.randint(0, img_w - w)
                     img[:, top:top + h, left:left + w] = _get_pixels(
-                        self.per_pixel, self.rand_color, (chan, h, w),
-                        dtype=dtype, device=self.device)
+                        self.mode, (chan, h, w),
+                        dtype=dtype, device=self.device, img_patch=img[:, top:top + h, left:left + w])
                     break
 
     def __call__(self, input):
         
         input = torch.tensor(np.array(input))
+        input = input.to(torch.float32)
         # print(input.shape) # [224, 224, 3]
         
         # Swap dimensions to [3, 224, 224]
@@ -106,7 +74,6 @@ class RandomErasing:
             for i in range(batch_start, batch_size):
                 self._erase(input[i], chan, img_h, img_w, input.dtype)
                 
-        
         # Swap dimensions to [3, 224, 224]
         input = input.permute(1, 2, 0)
 
@@ -114,6 +81,7 @@ class RandomErasing:
         input = input.cpu().numpy()  
         input = np.clip(input, 0, 255).astype(np.uint8)
         return Image.fromarray(input)
+
 
 def peano_curve_indices(num_patches_h, num_patches_w):
     # Simple Peano curve-like ordering
@@ -285,3 +253,41 @@ class JigsawPuzzle_l():
         mixed_img = np.clip(mixed_img, 0, 255).astype(np.uint8)
         return Image.fromarray(mixed_img)
 
+
+class RandomPatchNoise():
+    def __init__(self, patch_height, patch_width, mix_prob=1.0):
+        self.patch_height = patch_height
+        self.patch_width = patch_width
+        self.mix_prob = mix_prob
+
+    def RPN(self, img_patch, rpn_noise=0.25):
+        
+        if  torch.rand(1) > rpn_noise:
+            return(img_patch)
+        else:
+            return(img_patch + 64*torch.empty((self.patch_height,self.patch_width,3), dtype=img_patch.dtype, device=img_patch.device).normal_())
+    
+    def __call__(self, img):
+        if torch.rand(1) > self.mix_prob:
+            return img
+        
+        img_tensor = torch.tensor(np.array(img))
+        img_tensor = img_tensor.to(torch.float32)
+        h, w, c = img_tensor.shape
+        num_patches_h = h // self.patch_height
+        num_patches_w = w // self.patch_width
+        N = num_patches_h * num_patches_w
+
+        # Create a list of patches
+        patches = []
+        for i in range(num_patches_h):
+            for j in range(num_patches_w):
+                start_h = i * self.patch_height
+                start_w = j * self.patch_width
+                img_tensor[start_h:start_h+self.patch_height, start_w:start_w+self.patch_width] = self.RPN(img_tensor[start_h:start_h+self.patch_height, start_w:start_w+self.patch_width])
+
+
+        # Convert tensor back to NumPy for PIL, ensuring values are in [0, 255]
+        img_np = img_tensor.cpu().numpy()  
+        img_np = np.clip(img_np, 0, 255).astype(np.uint8)
+        return Image.fromarray(img_np)

@@ -13,7 +13,7 @@ from torchvision import transforms
 
 from moco.loader import GaussianBlur
 import numpy as np
-from augmentations import JigsawPuzzle, JigsawPuzzle_l, JigsawPuzzle_all, RandomErasing
+from augmentations import JigsawPuzzle, JigsawPuzzle_l, JigsawPuzzle_all, RandomErasing, RandomPatchNoise
 
 
 LOG_FORMAT = "[%(levelname)s] %(asctime)s %(filename)s:%(lineno)s %(message)s"
@@ -256,6 +256,9 @@ def get_augmentation(aug_type, alpha=8.0, beta=2.0, patch_height=28, mix_prob=0.
     return DualTransform(
         aug_type=aug_type,
         image_transform=image_aug,
+        patch_height=patch_height, 
+        patch_width=patch_height,
+        mix_prob=mix_prob,
     )
 
 def remove_background(img1, img2, mask):
@@ -279,7 +282,7 @@ class DualTransform:
     """
     A wrapper that can apply image-only transforms or image+mask transforms.
     """
-    def __init__(self, aug_type, image_transform=None):
+    def __init__(self, aug_type, image_transform=None, patch_height=28, patch_width=28,mix_prob=1.0):
         self.image_transform = image_transform
         self.aug_type = aug_type
         self.base_transform = transforms.Compose(
@@ -300,7 +303,8 @@ class DualTransform:
                 transforms.RandomGrayscale(p=0.2),
                 transforms.RandomApply([GaussianBlur([0.1, 2.0])], p=0.5),
                 transforms.RandomHorizontalFlip(),
-                RandomErasing(),
+                # RandomErasing(mode='soft_pixel'),
+                RandomPatchNoise(patch_height,patch_width,mix_prob),
                 transforms.ToTensor(),
                 normalize,
             ]
