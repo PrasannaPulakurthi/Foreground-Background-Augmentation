@@ -261,6 +261,28 @@ def get_augmentation(aug_type, alpha=8.0, beta=2.0, patch_height=28, mix_prob=0.
                 transforms.ToTensor(),
             ]
         )
+    elif aug_type == "rpe":
+        image_aug = transforms.Compose(
+            [
+                transforms.Resize((256, 256)),
+                transforms.CenterCrop(224),
+                # transforms.RandomHorizontalFlip(),
+                RandomPatchErase(patch_height=patch_height, patch_width=patch_height, mix_prob=1),
+                transforms.ToTensor(),
+                normalize,
+            ]
+        )
+    elif aug_type == "rpn":
+        image_aug = transforms.Compose(
+            [
+                transforms.Resize((256, 256)),
+                transforms.CenterCrop(224),
+                # transforms.RandomHorizontalFlip(),
+                RandomPatchNoise(patch_height=patch_height, patch_width=patch_height, mix_prob=1),
+                transforms.ToTensor(),
+                normalize,
+            ]
+        )
     else:
         image_aug = None
 
