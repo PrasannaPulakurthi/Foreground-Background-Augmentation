@@ -147,7 +147,7 @@ class JigsawPuzzle():
         return Image.fromarray(mixed_img)
     
 class JigsawPuzzle_all():
-    def __init__(self, patch_height, patch_width, mix_prob=0.8):
+    def __init__(self, patch_height=None, patch_width=None, mix_prob=0.8):
         self.patch_height_options = [14, 28, 56, 112]
         self.mix_prob = mix_prob
 
@@ -260,8 +260,8 @@ class RandomPatchNoise():
         self.patch_height = patch_height
         self.patch_width = patch_width
         self.mix_prob = mix_prob
-        self.sl = 0.025
-        self.sh = 0.25
+        self.sl = 0.02
+        self.sh = 0.4
 
     def __call__(self, img):
         if torch.rand(1) > self.mix_prob:
@@ -283,7 +283,7 @@ class RandomPatchNoise():
                 rpn_prob = torch.distributions.uniform.Uniform(self.sl,self.sh).sample([1]) 
                 if  torch.rand(1) < rpn_prob:
                     img_patch = img_tensor[start_h:start_h+self.patch_height, start_w:start_w+self.patch_width]
-                    noisy_patch = img_patch + 64*torch.empty((self.patch_height,self.patch_width,3), dtype=img_patch.dtype, device=img_patch.device).normal_()
+                    noisy_patch = img_patch + 128*torch.empty((self.patch_height,self.patch_width,3), dtype=img_patch.dtype, device=img_patch.device).normal_()
                     img_tensor[start_h:start_h+self.patch_height, start_w:start_w+self.patch_width] = noisy_patch
 
 
@@ -301,7 +301,7 @@ class RandomPatchErase():
         self.patch_width = patch_width
         self.mix_prob = mix_prob
         self.sl = 0.025
-        self.sh = 0.25
+        self.sh = 0.4
 
     def __call__(self, img):
         if torch.rand(1) > self.mix_prob:

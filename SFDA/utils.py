@@ -252,15 +252,6 @@ def get_augmentation(aug_type, alpha=8.0, beta=2.0, patch_height=28, mix_prob=0.
                 normalize,
             ]
         )
-    elif aug_type in ["ours", "ours_1"]:
-        image_aug = transforms.Compose(
-            [
-                transforms.Resize((256, 256)),
-                transforms.CenterCrop(224),
-                JigsawPuzzle_all(patch_height=patch_height, patch_width=patch_height, mix_prob=mix_prob),
-                transforms.ToTensor(),
-            ]
-        )
     elif aug_type == "rpe":
         image_aug = transforms.Compose(
             [
@@ -283,6 +274,15 @@ def get_augmentation(aug_type, alpha=8.0, beta=2.0, patch_height=28, mix_prob=0.
                 normalize,
             ]
         )
+    elif aug_type in ["ours", "ours_1"]:
+        image_aug = transforms.Compose(
+            [
+                transforms.Resize((256, 256)),
+                transforms.CenterCrop(224),
+                JigsawPuzzle_all(patch_height=patch_height, patch_width=patch_height, mix_prob=mix_prob),
+                transforms.ToTensor(),
+            ]
+        )
     else:
         image_aug = None
 
@@ -294,7 +294,7 @@ def get_augmentation(aug_type, alpha=8.0, beta=2.0, patch_height=28, mix_prob=0.
         mix_prob=mix_prob,
     )
 
-def remove_background(img1, img2, mask):
+def fuse_foreground_background(img1, img2, mask):
     """
     Given a (C,H,W) image tensor and a (possibly 2D) mask,
     multiply img by mask to black out the background.
@@ -337,35 +337,80 @@ class DualTransform:
                 transforms.RandomApply([GaussianBlur([0.1, 2.0])], p=0.5),
                 transforms.RandomHorizontalFlip(),
                 # RandomErasing(mode='soft_pixel'),
-                RandomPatchNoise(patch_height, patch_width, mix_prob),
-                RandomPatchErase(patch_height, patch_width, mix_prob),
                 transforms.ToTensor(),
                 normalize,
             ]
         )
+        self.fpn = RandomPatchNoise(patch_height=56, patch_width=56, mix_prob=mix_prob)
+        self.to_pil = transforms.ToPILImage()
+        self.to_tensor = transforms.ToTensor()
+        self.jigsaw = JigsawPuzzle(patch_height=28, patch_width=28, mix_prob=mix_prob)
+        self.jigsaw_all = JigsawPuzzle_all(mix_prob=mix_prob)
+
     def __call__(self, img, mask=None):
-        if self.aug_type == "ours":
+        if self.aug_type == "mask":
+            mask = self.base_transform(mask)
+            return normalize(mask)
+        elif self.aug_type == "foreground":
+            mask = self.base_transform(mask)
+            img = self.base_transform(img)
+            return normalize(img * (mask>0.5).float())
+        elif self.aug_type == "fpn":
+            mask = self.base_transform(mask)
+            img = self.base_transform(img)
+            img_n = self.to_tensor(self.fpn(self.to_pil(img)))
+            return normalize(img_n * (mask>0.5).float())
+        elif self.aug_type == "bps":
+            mask = self.base_transform(mask)
+            img = self.base_transform(img)
+            img_jigsaw = self.to_tensor(self.jigsaw(self.to_pil(img)))
+            return normalize(img_jigsaw * (mask<0.5).float())
+        elif self.aug_type == "ours_raw":
+            mask = self.base_transform(mask)
+            img = self.base_transform(img)
+            img_n = self.to_tensor(self.fpn(self.to_pil(img)))
+            img_jigsaw = self.to_tensor(self.jigsaw(self.to_pil(img)))
+            img_out = fuse_foreground_background(img_n, img_jigsaw, mask)
+            return normalize(img_out)
+        elif self.aug_type == "ours":
+            mask = self.base_transform(mask)
+            img = self.base_transform(img)
+            img_n = self.to_tensor(self.fpn(self.to_pil(img)))
+            img_jigsaw = self.to_tensor(self.jigsaw_all(self.to_pil(img)))
+            img_out = fuse_foreground_background(img_n, img_jigsaw, mask)
+            return self.moco_transform(self.to_pil(img_out))
+        elif self.aug_type == "ours_fpn":
+            mask = self.base_transform(mask)
+            img = self.base_transform(img)
+            img_n = self.to_tensor(self.fpn(self.to_pil(img)))
+            img_out = fuse_foreground_background(img_n, img, mask)
+            return self.moco_transform(self.to_pil(img_out))
+        elif self.aug_type == "ours_bps":
+            mask = self.base_transform(mask)
+            img = self.base_transform(img)
+            # img_n = self.to_tensor(self.fpn(self.to_pil(img)))
+            img_jigsaw = self.to_tensor(self.jigsaw_all(self.to_pil(img)))
+            img_out = fuse_foreground_background(img, img_jigsaw, mask)
+            return self.moco_transform(self.to_pil(img_out))
+        # Always transform the image if we have an image_transform
+        else:
+            return self.image_transform(img)
+        '''
+        elif self.aug_type == "ours_old":
             img_t = self.image_transform(img)
             img = self.base_transform(img)
             mask = self.base_transform(mask)
-            img_t1 = remove_background(img, img_t, mask)
-            to_pil = transforms.ToPILImage()
-            img_t1_pil = to_pil(img_t1)
+            img_t1 = fuse_foreground_background(img, img_t, mask)
+            img_t1_pil = self.to_pil(img_t1)
             output = self.moco_transform(img_t1_pil)
             return output
-        elif self.aug_type == "mask":
-            mask = self.base_transform(mask)
-            return normalize(mask)
         elif self.aug_type == "ours_1":
             img_t = self.image_transform(img)
             img = self.base_transform(img)
             mask = self.base_transform(mask)
-            img_t1 = remove_background(img, img_t, mask)
-            return normalize(img_t1)
-        # Always transform the image if we have an image_transform
-        else:
-            return self.image_transform(img)
-
+            img_t1 = fuse_foreground_background(img, img_t, mask)
+            return normalize(img_t1)'
+        '''
     
 class AverageMeter(object):
     """Computes and stores the average and current value"""

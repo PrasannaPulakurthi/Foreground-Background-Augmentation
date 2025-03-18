@@ -34,12 +34,16 @@ def get_augmentation_versions_patches(name):
     transform_list = [
         get_augmentation("test"),
         get_augmentation("mask"),
-        get_augmentation("rpe"),
-        get_augmentation("rpn"),
+        get_augmentation("foreground"),
+        get_augmentation("fpn"),
+        get_augmentation("bps"),
+        get_augmentation("ours_raw"),
+        get_augmentation("ours"),
+        get_augmentation("ours_fpn"),
+        get_augmentation("ours_bps"),
         # get_augmentation("jigsaw_all", patch_height=28, mix_prob=1),
         # get_augmentation("ours_1", patch_height=28, mix_prob=1),
-
-        get_augmentation("ours", alpha=4.0, beta=2.0, patch_height=28, mix_prob=0.8), # 8x8
+        # get_augmentation("ours", alpha=4.0, beta=2.0, patch_height=28, mix_prob=0.8), # 8x8
     ]
     return NCropsTransform(transform_list)
 
@@ -50,11 +54,11 @@ def main(train_transform, folder_name):
         os.makedirs(f"output/visualize/{folder_name}")
 
     # Example usage with the specified replacements
-    image_root = 'datasets/PACS'  # Replace args.data.image_root
+    image_root = 'datasets/horses'  # Replace args.data.image_root
     pseudo_item_list = None  # Replace pseudo_item_list
     batch_size = 1  # Replace args.data.batch_size
     num_workers = 1  # Replace args.data.workers
-    label_file = 'datasets/PACS/photo_list.txt'
+    label_file = 'datasets/horses/list.txt'
 
     # Training data
     train_dataset = ImageList(
