@@ -15,6 +15,7 @@ To set up the environment and baseline code, follow the installation guide provi
 
 
 #### 1. Install Dependencies
+
 Install **MediaPipe**:
   ```bash
   pip install mediapipe
@@ -22,12 +23,14 @@ Install **MediaPipe**:
 Set up SAM 2 (Segment Anything in Images and Videos) by following the instructions here: 🔗 [facebookresearch/sam2](https://github.com/facebookresearch/sam2)
 
 #### 2. Generate Masks
+
 Run the following script to create segmentation masks for human foregrounds:
 ```bash
 python sam2_maskgenerator.py
 ```
 
-## Training and Testing 
+## Training and Testing
+
 All training and testing instructions are available in the train_test_instructions.sh file. 
 
 Baseline (Market-1501 with ResNet18)
@@ -51,5 +54,6 @@ python test.py  --gpu_ids 0  --name use_rn18_market_4 --use_rn18 --batchsize 32 
 ```
 
 ## Codebase
+
 1. Baseline Code: [Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch) ![GitHub stars](https://img.shields.io/github/stars/layumi/Person_reID_baseline_pytorch.svg?style=flat&label=Star)
 2. Masking Generation Framework: [SAM 2](https://github.com/facebookresearch/sam2) ![GitHub stars](https://img.shields.io/github/stars/facebookresearch/sam2.svg?style=flat&label=Star)
