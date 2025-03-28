@@ -6,5 +6,5 @@ Instructions on how to install the SAM 2 model can be found here.
 
 Run the following command to create a human foreground segmentation mask. 
 
-## Related Repos
-1. [Pedestrian Alignment Network](https://github.com/layumi/Pedestrian_Alignment) ![GitHub stars](https://img.shields.io/github/stars/layumi/Pedestrian_Alignment.svg?style=flat&label=Star)
+## Codebase
+1. [Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch) ![GitHub stars](https://img.shields.io/github/stars/layumi/Person_reID_baseline_pytorch.svg?style=flat&label=Star)
