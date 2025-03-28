@@ -3,13 +3,15 @@
 ## 🚀 Getting Started
 
 ### 📦 Installation
+
 To set up the environment and baseline code, follow the installation guide provided in the original repository:
 
 🔗 [Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch)
 
 
 ### Mask Generation
-**MediaPipe** is used to generate an initial mask, which acts as a starting point for the **SAM 2** model, improving foreground extraction.
+
+**MediaPipe** is used to generate an initial mask, which serves as input to the **SAM 2** model for refining the foreground segmentation.
 
 
 #### 1. Install Dependencies
