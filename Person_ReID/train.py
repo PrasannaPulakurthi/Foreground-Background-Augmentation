@@ -448,8 +448,10 @@ def main():
                     else:  #  norm
                         _, preds = torch.max(outputs.data, 1)
                         loss = criterion(outputs, labels)
+                        '''
                         if opt.adv>0 and iter%opt.aiter==0:
-                            loss += opt.adv * criterion(outputs_adv, labels)
+                            loss += opt.adv * criterion(outputs_adv, labels)'
+                        '''
 
                     del inputs
                     # use extra DG Dataset (https://github.com/NVlabs/DG-Net#dg-market)
