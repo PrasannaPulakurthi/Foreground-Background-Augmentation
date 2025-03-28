@@ -1,4 +1,4 @@
-# <p align="center">👣 Person Re-Identification (Person ReID)</p>
+# <p align="center"> Person Re-Identification (Person ReID)</p>
 
 ---
 
