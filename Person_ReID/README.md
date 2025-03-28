@@ -6,7 +6,7 @@ Instructions on how to install the SAM 2 model can be found here.
 
 Run the following command to create a human foreground segmentation mask. 
 ```bash
-  python sam2_maskgenerator.py
+python sam2_maskgenerator.py
 ```
 ## Codebase
 1. [Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch) ![GitHub stars](https://img.shields.io/github/stars/layumi/Person_reID_baseline_pytorch.svg?style=flat&label=Star)
