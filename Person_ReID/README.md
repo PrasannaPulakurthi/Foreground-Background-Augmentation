@@ -1,4 +1,4 @@
-<h1 align="center"> Pytorch ReID </h1>
+<h1 align="center"> Person ReID </h1>
 <h2 align="center"> Strong, Small, Friendly </h2>
 
 ![Python3.6+](https://img.shields.io/badge/python-3.6+-green.svg)
