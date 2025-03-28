@@ -2,7 +2,7 @@
 
 To generate the masks, we use mediapipe to generate a rough mask and refine it using the "SAM 2: Segment Anything in Images and Videos" model. 
 
-Instructions on how to install the SAM 2 model can be found here. 
+Instructions on how to install the SAM 2 model can be found [here](https://github.com/facebookresearch/sam2). 
 
 Run the following command to create a human foreground segmentation mask. 
 ```bash
