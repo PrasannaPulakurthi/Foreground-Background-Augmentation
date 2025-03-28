@@ -31,7 +31,7 @@ python sam2_maskgenerator.py
 
 ## Training and Testing
 
-All training and testing instructions are available in the train_test_instructions.sh file. 
+All training and testing instructions are available in the `train_test_instructions.sh` file. 
 
 ### Baseline (Market-1501 with ResNet18)
 
