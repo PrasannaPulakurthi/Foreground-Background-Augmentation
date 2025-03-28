@@ -8,3 +8,4 @@ Run the following command to create a human foreground segmentation mask.
 
 ## Codebase
 1. [Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch) ![GitHub stars](https://img.shields.io/github/stars/layumi/Person_reID_baseline_pytorch.svg?style=flat&label=Star)
+2. [SAM 2: Segment Anything in Images and Videos](https://github.com/facebookresearch/sam2) ![GitHub stars](https://img.shields.io/github/stars/facebookresearch/sam2.svg?style=flat&label=Star)
