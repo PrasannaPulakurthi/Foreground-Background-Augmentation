@@ -1,6 +1,6 @@
 # <p align="center"> Person Re-Identification (Person ReID)</p>
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 📦 Installation
 
@@ -19,7 +19,7 @@ Install **MediaPipe**:
   ```bash
   pip install mediapipe
   ```
-Set up SAM 2 (Segment Anything in Images and Videos) by following the instructions here: 🔗 [facebookresearch/sam2](https://github.com/facebookresearch/sam2)
+Set up SAM 2 (Segment Anything in Images and Videos) by following the instructions here: [facebookresearch/sam2](https://github.com/facebookresearch/sam2)
 
 #### 2. Generate Masks
 Run the following script to create segmentation masks for human foregrounds:
