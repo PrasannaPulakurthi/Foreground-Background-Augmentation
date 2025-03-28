@@ -1,7 +1,5 @@
 # <p align="center"> Person Re-Identification (Person ReID)</p>
 
----
-
 ## 🚀 Getting Started
 
 ### 📦 Installation
@@ -40,7 +38,7 @@ Test:
 python test.py  --gpu_ids 0  --name use_rn18_market_1 --use_rn18 --batchsize 32  --test_dir data/Market/pytorch --which_epoch last
 ```
 
-With Our Foreground Background Augmentation
+With Foreground-Background Augmentation
 Train (with --ours parameter):
 ```bash
 python train.py --gpu_ids 0  --name use_rn18_market_4 --use_rn18 --batchsize 32  --data_dir data/Market/pytorch --ours 0.5 --total_epoch 60
