@@ -26,29 +26,9 @@ python u2net_maskgenerator.py
 
 ## Training and Testing
 
-All training and testing instructions are available in the `train_test_instructions.sh` file. 
+Source training instructions are present in the `scripts/pacs.sh` file. 
+Single and Multi-target training instructions are present in the `scripts/pacs.sh` file. 
 
-### Baseline (Market-1501 with ResNet18)
-
-Train:
-```bash
-python train.py --gpu_ids 0  --name use_rn18_market_1 --use_rn18 --batchsize 32  --data_dir data/Market/pytorch --total_epoch 60
-```
-Test:
-```bash
-python test.py  --gpu_ids 0  --name use_rn18_market_1 --use_rn18 --batchsize 32  --test_dir data/Market/pytorch --which_epoch last
-```
-
-### With Foreground-Background Augmentation
-
-Train (with --ours parameter):
-```bash
-python train.py --gpu_ids 0  --name use_rn18_market_4 --use_rn18 --batchsize 32  --data_dir data/Market/pytorch --ours 0.5 --total_epoch 60
-```
-Test:
-```bash
-python test.py  --gpu_ids 0  --name use_rn18_market_4 --use_rn18 --batchsize 32  --test_dir data/Market/pytorch --which_epoch last
-```
 
 ## 📁 Codebase
 
