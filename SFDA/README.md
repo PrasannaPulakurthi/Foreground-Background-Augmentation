@@ -52,5 +52,5 @@ python test.py  --gpu_ids 0  --name use_rn18_market_4 --use_rn18 --batchsize 32 
 
 ## 📁 Codebase
 
-1. Baseline Code: [Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch) ![GitHub stars](https://img.shields.io/github/stars/layumi/Person_reID_baseline_pytorch.svg?style=flat&label=Star)
-2. Masking Generation Framework: [SAM 2](https://github.com/facebookresearch/sam2) ![GitHub stars](https://img.shields.io/github/stars/facebookresearch/sam2.svg?style=flat&label=Star)
+1. Baseline Code: [AdversarialNAS](https://github.com/chengaopro/AdversarialNAS) ![GitHub stars](https://img.shields.io/github/stars/chengaopro/AdversarialNAS.svg?style=flat&label=Star)
+
