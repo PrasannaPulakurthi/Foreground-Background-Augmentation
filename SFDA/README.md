@@ -1,4 +1,4 @@
-# <p align="center"> Person Re-Identification (Person ReID)</p>
+# <p align="center"> Source-Free Domain Adaptation (SFDA)</p>
 
 ## Getting Started
 
