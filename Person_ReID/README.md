@@ -37,7 +37,7 @@ All training and testing instructions are available in the `train_test_instructi
 
 Train:
 ```bash
-python train.py --gpu_ids 0  --name use_rn18_market_1 --use_rn18 --batchsize 32  --data_dir data/Market/pytorch --total_epoch 60
+python train.py --gpu_ids 0  --name use_rn18_market_1 --use_rn18 --batchsize 32  --data_dir data/Market/pytorch --total_epoch 30
 ```
 Test:
 ```bash
@@ -48,7 +48,7 @@ python test.py  --gpu_ids 0  --name use_rn18_market_1 --use_rn18 --batchsize 32 
 
 Train (with --ours parameter):
 ```bash
-python train.py --gpu_ids 0  --name use_rn18_market_4 --use_rn18 --batchsize 32  --data_dir data/Market/pytorch --ours 0.5 --total_epoch 60
+python train.py --gpu_ids 0  --name use_rn18_market_4 --use_rn18 --batchsize 32  --data_dir data/Market/pytorch --ours 0.5 --total_epoch 30
 ```
 Test:
 ```bash
