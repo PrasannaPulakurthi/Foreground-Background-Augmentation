@@ -18,7 +18,7 @@ import scipy.io
 import yaml
 import math
 from tqdm import tqdm
-from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_efficient, ft_net_NAS, ft_net_convnext, PCB, PCB_test, ft_net_resnet18, ft_net_resnet34, ft_net_resnet50
+from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_efficient, ft_net_NAS, ft_net_convnext, PCB, PCB_test, ft_net_resnet18
 from utils import fuse_all_conv_bn
 version =  torch.__version__
 #fp16
