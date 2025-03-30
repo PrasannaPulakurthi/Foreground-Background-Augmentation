@@ -10,29 +10,6 @@ from sam2.build_sam import build_sam2
 from sam2.sam2_image_predictor import SAM2ImagePredictor
 
 
-def fallback_center_grid(w, h, grid_size_x=3, grid_size_y=7, spacing=10):
-    """
-    Creates a grid of points around the image center,
-    with the specified grid dimensions and spacing.
-    """
-    center_x, center_y = w // 2, h // 2
-    fg_points = []
-    
-    # For a 3×7 grid, i will run over -1..1 and j over -3..3 (if grid_size_y=7)
-    # Adjust the offset logic to suit your preference.
-    half_x = grid_size_x // 2
-    half_y = grid_size_y // 2
-    
-    for i in range(-half_x, half_x + 1):
-        for j in range(-half_y, half_y + 1):
-            point_x = center_x + i * spacing
-            point_y = center_y + j * spacing
-            # Check bounds
-            if 0 <= point_x < w and 0 <= point_y < h:
-                fg_points.append([point_x, point_y])
-    
-    return np.array(fg_points)
-
 def save_output(image_path, pred, prediction_dir, root_dir):
     # Squeeze the predicted mask (assumed to be a numpy array)
     predict_np = pred.squeeze()
