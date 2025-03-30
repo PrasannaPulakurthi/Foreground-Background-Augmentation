@@ -17,7 +17,7 @@ import time
 import os
 import collections
 from tqdm import tqdm
-from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_convnext, ft_net_efficient, ft_net_NAS, PCB, ft_net_resnet18, ft_net_resnet34, ft_net_resnet50
+from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_convnext, ft_net_efficient, ft_net_NAS, PCB, ft_net_resnet18
 from augmentations import RandomErasing, RandomGrayscaleErasing, RandomPatchNoise, Ours, unnormalize
 # from dgfolder import DGFolder
 import yaml
