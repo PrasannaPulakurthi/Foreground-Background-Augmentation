@@ -163,65 +163,7 @@ class RandomPatchNoise():
         else:
             raise ValueError("Input must be a 3D tensor (C, H, W) or a 4D tensor (N, C, H, W)")
         
-'''
-class RandomPatchNoise(object):
-    def __init__(self, probability=0.5, sl=0.02, sh=0.4, r1=0.3, mean=[0, 0, 0], noise_std=3.0):
-        self.probability = probability
-        self.mean = mean
-        self.sl = sl
-        self.sh = sh
-        self.r1 = r1
-        self.noise_std = noise_std
-       
-    def _erase_image(self, img):
-        """Apply random erasing to a single image tensor of shape [C, H, W]."""
-        if random.uniform(0, 1) > self.probability:
-            return img
-
-        # Try up to 100 times to find a valid erasing area.
-        for attempt in range(100):
-            # Compute area of the image.
-            area = img.size(1) * img.size(2)
-            target_area = random.uniform(self.sl, self.sh) * area
-            aspect_ratio = random.uniform(self.r1, 1/self.r1)
-
-            h = int(round(math.sqrt(target_area * aspect_ratio)))
-            w = int(round(math.sqrt(target_area / aspect_ratio)))
-
-            # Check if the rectangle fits in the image dimensions.
-            if w < img.size(2) and h < img.size(1):
-                x1 = random.randint(0, img.size(1) - h)
-                y1 = random.randint(0, img.size(2) - w)
-                if img.size(0) == 3:  # for 3-channel images
-                    # Generate noise for each channel; each channel's noise is centered on its mean.
-                    noise = torch.randn((3, h, w)) * self.noise_std + torch.tensor(self.mean).view(3, 1, 1)
-                    img[:, x1:x1+h, y1:y1+w] = img[:, x1:x1+h, y1:y1+w] + noise
-                else:  # for single-channel images
-                    noise = torch.randn((1, h, w)) * self.noise_std + torch.tensor([self.mean[0]]).view(1, 1, 1)
-                    img[0, x1:x1+h, y1:y1+w] = img[0, x1:x1+h, y1:y1+w] + noise
-                return img
-
-        # Return the image unchanged if no valid area was found.
-        return img
-
-    def __call__(self, img):
-        """
-        Apply random erasing on either a single image (shape: [C, H, W])
-        or a minibatch of images (shape: [N, C, H, W]).
-        """
-        if img.dim() == 3:  # Single image
-            return self._erase_image(img)
-        elif img.dim() == 4:  # Minibatch of images
-            # Iterate over each image in the batch
-            for i in range(img.size(0)):
-                img[i] = self._erase_image(img[i])
-            return img
-        else:
-            raise ValueError("Unsupported tensor dimension. Expected 3D or 4D tensor.")
-
-'''
-
-
+        
 class RandomErasing(object):
     """Randomly selects a rectangle region in an image and erases its pixels.
        'Random Erasing Data Augmentation' by Zhong et al.
