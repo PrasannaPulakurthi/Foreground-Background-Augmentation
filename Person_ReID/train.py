@@ -110,7 +110,7 @@ def main():
     # optimizer
     parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
     parser.add_argument('--weight_decay', default=5e-4, type=float, help='Weight decay. More Regularization Smaller Weight.')
-    parser.add_argument('--total_epoch', default=60, type=int, help='total training epoch')
+    parser.add_argument('--total_epoch', default=30, type=int, help='total training epoch')
     parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50%% memory' )
     parser.add_argument('--cosine', action='store_true', help='use cosine lrRate' )
     parser.add_argument('--FSGD', action='store_true', help='use fused sgd, which will speed up trainig slightly. apex is needed.' )
@@ -347,9 +347,6 @@ def main():
             # for phase in ['train']:
                 if phase == 'train':
                     model.train(True)  # Set model to training mode
-                    p = (1-(epoch/(num_epochs)))*opt.ours
-                    print(p)
-                    our_aug = Ours(probability=p)
                 else:
                     model.train(False)  # Set model to evaluate mode
 
@@ -368,7 +365,7 @@ def main():
                         inputs, mask, labels = data
                         if opt.ours>0:
                             inputs,_ = our_aug(inputs, mask)
-                            inputs = apply_flip_minibatch(rpn(inputs))
+                            inputs = apply_flip_minibatch(re(inputs))
                     else:
                         inputs, labels = data
                     

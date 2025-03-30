@@ -195,42 +195,6 @@ class ft_net_resnet18(nn.Module):
         x = self.classifier(x)
         return x
 
-# Define the ResNet34-based Model
-class ft_net_resnet34(nn.Module):
-    def __init__(self, class_num, droprate=0.5, circle=False, linear_num=512):
-        super().__init__()
-        model_ft = timm.create_model('resnet34', pretrained=True)
-        model_ft.fc = nn.Sequential()  # Remove the final fully connected layer to save memory
-        self.model = model_ft
-        self.circle = circle
-        self.avgpool = nn.AdaptiveAvgPool2d((1,1))
-        self.classifier = ClassBlock(512, class_num, droprate, linear=linear_num, return_f=circle)
-
-    def forward(self, x):
-        x = self.model.forward_features(x)
-        x = self.avgpool(x)
-        x = x.view(x.size(0), x.size(1))
-        x = self.classifier(x)
-        return x
-
-# Define the ResNet50-based Model
-class ft_net_resnet50(nn.Module):
-    def __init__(self, class_num, droprate=0.5, circle=False, linear_num=512):
-        super().__init__()
-        model_ft = timm.create_model('resnet50', pretrained=True)
-        model_ft.fc = nn.Sequential()  # Remove the final fully connected layer to save memory
-        self.model = model_ft
-        self.circle = circle
-        self.avgpool = nn.AdaptiveAvgPool2d((1,1))
-        self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f=circle)
-
-    def forward(self, x):
-        x = self.model.forward_features(x)
-        x = self.avgpool(x)
-        x = x.view(x.size(0), x.size(1))
-        x = self.classifier(x)
-        return x
-
 
 # Define the HRNet18-based Model
 class ft_net_hr(nn.Module):
