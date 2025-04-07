@@ -30,6 +30,7 @@ datasets/
 Set up U^2-NET: U Square Net by following the instructions here: 🔗 [xuebinqin/U-2-Net](https://github.com/xuebinqin/U-2-Net)
 ```bash
 git clone https://github.com/xuebinqin/U-2-Net
+rename U-2-Net u2net
 ```
 
 #### 2. Generate Masks
