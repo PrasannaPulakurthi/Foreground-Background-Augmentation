@@ -14,7 +14,6 @@ Download the PACS dataset from [Kaggle](https://www.kaggle.com/datasets/ma3ple/p
 Download the PACS dataset from [Kaggle](https://www.kaggle.com/datasets/ma3ple/pacs-dataset/data) and place it in `datasets/PACS/`.
 The dataset should be organized as follows
 
-```text
 datasets/
 └── PACS/
     ├── art_painting/
