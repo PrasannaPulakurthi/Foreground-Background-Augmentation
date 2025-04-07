@@ -41,9 +41,6 @@ def get_augmentation_versions_patches(name):
         get_augmentation("ours", mix_prob=1),
         get_augmentation("ours_fpn", mix_prob=1),
         get_augmentation("ours_bps", mix_prob=1),
-        # get_augmentation("jigsaw_all", patch_height=28, mix_prob=1),
-        # get_augmentation("ours_1", patch_height=28, mix_prob=1),
-        # get_augmentation("ours", alpha=4.0, beta=2.0, patch_height=28, mix_prob=0.8), # 8x8
     ]
     return NCropsTransform(transform_list)
 

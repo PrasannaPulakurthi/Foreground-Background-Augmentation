@@ -196,15 +196,13 @@ def get_augmentation_versions(args):
     transform_list = []
     for version in args.learn.aug_versions:
         if version == "s":
-            transform_list.append(get_augmentation(args.data.aug_type, args.learn.alpha_spm, args.learn.beta_spm, args.learn.patch_height, args.learn.mix_prob))
+            transform_list.append(get_augmentation(args.data.aug_type, args.learn.patch_height, args.learn.mix_prob))
         elif version == "w":
             transform_list.append(get_augmentation("plain"))
         elif version == "n":
             transform_list.append(get_augmentation("jigsaw"))
         else:
             raise NotImplementedError(f"{version} version not implemented.")
-    if args.learn.negative_aug:
-        transform_list.append(get_augmentation("jigsaw",patch_height=args.learn.patch_height))
     transform = NCropsTransform(transform_list)
 
     return transform
@@ -299,7 +297,6 @@ def train_target_domain(args):
         K=args.model_tta.queue_size,
         m=args.model_tta.m,
         T_moco=args.model_tta.T_moco,
-        negative_aug=args.learn.negative_aug,
     ).cuda()
     if args.distributed:
         model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
@@ -334,8 +331,6 @@ def train_target_domain(args):
     logging.info("4 - Created optimizer")
 
     logging.info("Start training...")
-    start_alpha = args.learn.alpha_spm
-    end_alpha = args.learn.alpha_spm_end
 
     best_acc = 0
 
@@ -361,13 +356,6 @@ def train_target_domain(args):
                 save_path_best = os.path.join(args.log_dir, filename)
                 save_checkpoint(model, optimizer, epoch, save_path=save_path_best)
                 logging.info(f"Saved checkpoint {save_path_best}")
-
-        if args.learn.change_alpha:
-            args.learn.alpha_spm = round(args.learn.alpha_spm - (start_alpha-end_alpha)/(args.learn.epochs),2)
-            if args.learn.alpha_spm < 2:
-                args.learn.alpha_spm = 2
-            train_loader, train_sampler = preparetrainloader(args, pseudo_item_list)
-        logging.info(f'Alpha Changed to {args.learn.alpha_spm}')
 
     if is_master(args):
         filename = f"checkpoint_{epoch:04d}_{args.data.src_domain}-{args.data.tgt_domain}-{args.sub_memo}_{args.seed}.pth.tar"
@@ -444,10 +432,7 @@ def train_epoch(train_loader, model, banks, optimizer, epoch, args):
             images[2].to("cuda"),
         )
 
-        if args.learn.negative_aug:
-            images_n = images[3].to("cuda")
-        else:
-            images_n = None
+        images_n = None
 
         # per-step scheduler
         if args.optim.lr_decay:
@@ -477,24 +462,7 @@ def train_epoch(train_loader, model, banks, optimizer, epoch, args):
         top1_ins.update(accuracy_ins.item(), len(logits_ins))
 
         # classification
-        '''
-        loss_cls, accuracy_psd = classification_loss(
-            logits_w, logits_q, pseudo_labels_w, args
-        )
-        '''
-
-        if args.learn.reweighting:
-            with torch.no_grad():
-                w = confidence_margin_reweighting(probs_w,args)
-                # w = entropy_reweighting(probs_w)
-                step = i + epoch * len(train_loader)
-                w = update_w(step, w, args)
-                if i==0:
-                    None
-                    # visualize_confidence_margin(probs_w,epoch,args)
-            loss_cls = (w * CE(logits_q, pseudo_labels_w)).mean()
-        else:
-            loss_cls = (CE(logits_q, pseudo_labels_w)).mean()
+        loss_cls = (CE(logits_q, pseudo_labels_w)).mean()
 
         accuracy_psd = calculate_acc(logits_q, pseudo_labels_w)
         top1_psd.update(accuracy_psd.item(), len(logits_w))
@@ -625,95 +593,3 @@ def entropy_minimization(logits):
 
     loss = ents.mean()
     return loss
-
-
-def visualize_confidence_margin(probs, epoch, args):
-    # Ensure the visualize directory exists
-    visualize_dir = os.path.join(args.log_dir, 'visualize')
-    os.makedirs(visualize_dir, exist_ok=True)
-
-    with torch.no_grad():
-        # Sort probabilities to get top 2 probabilities for each sample
-        top_probs, _ = torch.topk(probs, k=2, dim=1)
-        confidence = top_probs[:, 0]  # Top confidence value
-        margin = confidence - top_probs[:, 1]  # Confidence margin
-
-    # Prepare data for plotting
-    confidence_np = confidence.cpu().numpy()
-    margin_np = margin.cpu().numpy()
-
-    # Create the joint plot
-    plt.figure(figsize=(8, 6))
-    joint_plot = sns.jointplot(x=confidence_np, y=margin_np, kind="scatter", color="blue")
-    joint_plot.ax_joint.set_xlim(0, 1)  # Set x-axis limit
-    joint_plot.ax_joint.set_ylim(0, 1)  # Set y-axis limit
-
-    # Add labels and title
-    joint_plot.set_axis_labels("Confidence", "Margin")
-    plt.suptitle(f"Joint Distribution of Confidence and Margin (Epoch {epoch})", y=1.02)
-
-    # Save the plot
-    filename = f"{epoch}.png"
-    save_path = os.path.join(visualize_dir, filename)
-    plt.savefig(save_path, bbox_inches='tight')
-    plt.close()
-
-    print(f"Visualization saved to: {save_path}")
-
-
-def confidence_margin_reweighting(probs,args):
-    with torch.no_grad():
-        # Sort probabilities to get top 2 probabilities for each sample
-        top_probs, _ = torch.topk(probs, k=2, dim=1)
-        c = top_probs[:, 0]                     # Compute confidence 
-        m = top_probs[:, 0] - top_probs[:, 1]   # Compute margin
-        cm_p = (c + m)/2
-        cm = c*m
-        
-        # Normalize to [0, 1] 
-        m_norm = m / torch.max(m) 
-        c_norm = c / torch.max(c) 
-        cm_norm = cm / torch.max(cm) 
-        
-        # Compute reweighting factors based on selected strategy
-        reweighting_type = args.learn.reweighting_type
-        
-        # Define reweighting strategy mapping
-        reweighting_map = {
-            "m": m, "c": c, "cm": cm, "cm_p": cm_p,
-            "m_2": m ** 2, "c_2": c ** 2, "cm_2": cm ** 2, "cm_p_2": cm_p ** 2,
-            "exp_m": torch.exp(m), "exp_c": torch.exp(c), "exp_cm": torch.exp(cm), "exp_cm_p": torch.exp(cm_p),
-            "cm_exp_m":cm * torch.exp(m),	"cm_exp_c":cm * torch.exp(c),	"cm_p_exp_m":cm_p * torch.exp(m),	"cm_p_exp_c":cm_p * torch.exp(c),
-            "m_exp_c":m * torch.exp(c), "c_exp_m":c * torch.exp(m),
-            "cm_m_2": cm * (m ** 2), "cm_m_3": cm * (m ** 3), "cm_c_2": cm * (c ** 2), "cm_c_3": cm * (c ** 3), 
-            "2_c_m_2": 2 * c * (m ** 2), "3_c_m_3": 3 * c * (m ** 3), "2_m_c_2": 2 * m * (c ** 2), "3_m_c_3": 3 * m * (c ** 3), 
-            "2_cm_m_2": 2 * cm * (m ** 2), "3_cm_m_3": 3 * cm * (m ** 3), "2_cm_c_2": 2 * cm * (c ** 2), "3_cm_c_3": 3 * cm * (c ** 3), 
-            "2_cm":2 * cm, "3_m_c_2":3 * m * (c**2)	, "3_c_m_2":3 * c * (m**2)	, "4_c_m_3":4 * c * (m ** 3)	, "4_m_c_3":4 * m * (c ** 3),
-            #
-            "cm_3": cm ** 3, "m_norm": m_norm, "c_norm": c_norm, "cm_norm": cm_norm,
-            "cm_exp_m": cm * torch.exp(m), "cm_exp_m_norm": cm * torch.exp(m_norm),
-            "cm_exp_c": cm * torch.exp(c), "cm_exp_c_norm": cm * torch.exp(c_norm),
-            "m_exp_c": m * torch.exp(c), "c_exp_m": c * torch.exp(m),
-            "m_c2": m * c ** 2, "c_m2": c * m ** 2, "m_c3": m * c ** 3, "c_m3": c * m ** 3,
-            "cm_c2": cm * c ** 2, "cm_m2": cm * m ** 2, "cm_c3": cm * c ** 3, "cm_m3": cm * m ** 3
-        }
-            
-        # Get weights or raise an error if the type is not recognized
-        weights = reweighting_map.get(reweighting_type)
-        if weights is None:
-            raise ValueError(f"Reweighting type '{reweighting_type}' not implemented")
-
-    return weights
-
-
-def entropy(p, axis=1):
-    return -torch.sum(p * torch.log2(p+1e-5), dim=axis)
-
-
-def entropy_reweighting(probs):
-        num_classes = probs.shape[1]
-        with torch.no_grad():
-            #CE weights
-            max_entropy = torch.log2(torch.tensor(num_classes, dtype=torch.float32))
-            weight = torch.exp( - entropy(probs) / max_entropy)
-        return weight
