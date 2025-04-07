@@ -37,7 +37,7 @@ Download the pre-trained model u2net.pth (176.3 MB) from [GoogleDrive](https://d
 
 #### 2. Generate Masks
 
-Run the following script to create segmentation masks for human foregrounds:
+Run the following script to create segmentation masks:
 ```bash
 python u2net_maskgenerator.py
 ```
