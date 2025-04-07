@@ -1,6 +1,6 @@
 # <p align="center"> Foreground Background Augmentation </p>
 
-Code for our **SPIE 2025** paper "**Exploring effective synthetic data generation for reduced reliance on large amounts of labeled data**,"
+Code for our 2025 paper "**Exploring effective synthetic data generation for reduced reliance on large amounts of labeled data**,"
 by [Prasanna Reddy Pulakurthi](https://www.prasannapulakurthi.com/), [Majid Rabbani](https://www.rit.edu/directory/mxreee-majid-rabbani), [Celso M. de Melo](https://celsodemelo.net/), [Sohail A. Dianat](https://www.rit.edu/directory/sadeee-sohail-dianat), and [Raghuveer Rao](https://ieeexplore.ieee.org/author/37281258600).
 
 **Keywords:** Human Action Recognition (HAR), Generative Adversarial Network(GAN), Deep Neural Network (DNN), Synthetic Data, Data Augmentation.
