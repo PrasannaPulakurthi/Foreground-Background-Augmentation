@@ -8,6 +8,16 @@ To set up the environment and baseline code, follow the installation guide provi
 
 🔗 [AdversarialNAS](https://github.com/chengaopro/AdversarialNAS)
 
+### Download the PACS dataset
+
+Download the PACS dataset from [here](https://www.kaggle.com/datasets/ma3ple/pacs-dataset/data) and place it in `datasets/PACS/`.
+datasets
+--PACS
+  --photo
+  --art_painting
+  --cartoon
+  --sketch
+  
 
 ### Mask Generation
 
