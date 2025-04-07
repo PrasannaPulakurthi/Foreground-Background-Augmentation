@@ -8,7 +8,7 @@ To set up the environment and baseline code, follow the installation guide provi
 
 🔗 [AdversarialNAS](https://github.com/chengaopro/AdversarialNAS)
 
-### 📦 Download and Organize the PACS Dataset
+### Download and Organize the PACS Dataset
 
 Download the PACS dataset from [Kaggle](https://www.kaggle.com/datasets/ma3ple/pacs-dataset/data) and extract it into the `datasets/` directory.
 The dataset should be organized as follows:
