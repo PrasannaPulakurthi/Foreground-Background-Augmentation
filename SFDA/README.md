@@ -6,7 +6,7 @@
 
 To set up the environment and baseline code, follow the installation guide provided in the original repository:
 
-🔗 [AdversarialNAS](https://github.com/chengaopro/AdversarialNAS)
+🔗 [AdaContrast](https://github.com/DianCh/AdaContrast)
 
 ### Download and Organize the PACS Dataset
 
