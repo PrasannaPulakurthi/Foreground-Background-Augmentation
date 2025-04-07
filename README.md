@@ -9,5 +9,13 @@ This paper introduces a novel synthetic data generation approach designed to mit
 
 ![examples](assets/examples.png)
 
+## Method
 ![method](assets/method.png)
 
+## Applications
+
+### Source-Free Domain Adaptation
+Find more information in `./SFDA/`
+
+### Person Re-Identification
+Find more information in `./Person_ReID/`
