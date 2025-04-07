@@ -10,10 +10,8 @@ To set up the environment and baseline code, follow the installation guide provi
 
 ### Download and organize the PACS dataset
 
-Download the PACS dataset from [Kaggle](https://www.kaggle.com/datasets/ma3ple/pacs-dataset/data) and extract it into the `datasets/` directory so that it follows the structure below:
-Download the PACS dataset from [Kaggle](https://www.kaggle.com/datasets/ma3ple/pacs-dataset/data) and place it in `datasets/PACS/`.
-The dataset should be organized as follows
-
+Download the PACS dataset from [Kaggle](https://www.kaggle.com/datasets/ma3ple/pacs-dataset/data) and extract it into the `datasets/` directory.
+The dataset should be organized as follows:
 ```text
 datasets/
 └── PACS/
