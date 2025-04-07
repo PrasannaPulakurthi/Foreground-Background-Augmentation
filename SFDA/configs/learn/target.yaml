@@ -20,6 +20,6 @@ num_neighbors: 3
 queue_size: -1
 epoch_labeling: false
 
-# ours
+# If ours
 patch_height: 28
 mix_prob: 0.8
