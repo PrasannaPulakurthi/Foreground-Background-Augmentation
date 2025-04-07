@@ -33,6 +33,8 @@ git clone https://github.com/xuebinqin/U-2-Net
 rename U-2-Net u2net
 ```
 
+Download the pre-trained model u2net.pth (176.3 MB) from [GoogleDrive](https://drive.google.com/file/d/1ao1ovG1Qtx4b7EoskHXmi2E9rp5CHLcZ/view) to `./u2net/saved_models/u2net/`
+
 #### 2. Generate Masks
 
 Run the following script to create segmentation masks for human foregrounds:
