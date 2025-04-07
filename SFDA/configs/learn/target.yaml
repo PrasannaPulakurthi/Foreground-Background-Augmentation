@@ -15,6 +15,11 @@ lambda_div: 1.0
 aug_versions: "wss" # ["w", "ws", "wss", "ss", "wssn"]
 dist_type: "cosine" # ["cosine", "euclidean"]
 ce_sup_type: "weak_strong" # ["weak_all", "weak_weak", "weak_strong", "self_all"]
+refine_method: "nearest_neighbors"
 num_neighbors: 3
 queue_size: -1
 epoch_labeling: false
+
+# ours
+patch_height: 28
+mix_prob: 0.8
