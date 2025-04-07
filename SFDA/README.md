@@ -44,7 +44,7 @@ python u2net_maskgenerator.py
 
 ## Training and Testing
 
-Source training instructions are present in the `scripts_win/train_PACS_source.sh` file. 
+Source training instructions are present in the `scripts_win/train_PACS_source.sh` file. We also provide the pre-trained source models from 3 seeds (2020, 2021, 2022), which can be downloaded from [GoogleDrive](https://drive.google.com/drive/folders/1hJ5sokuIgRRK2POaGd4I2M88YpioMjA4?usp=sharing).
 
 Single and Multi-target training instructions are present in the `scripts_win/train_PACS_target.sh` file. 
 
