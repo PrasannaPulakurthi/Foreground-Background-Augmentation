@@ -16,6 +16,9 @@ To set up the environment and baseline code, follow the installation guide provi
 
 #### 1. Install Dependencies
 Set up U^2-NET: U Square Net by following the instructions here: 🔗 [xuebinqin/U-2-Net](https://github.com/xuebinqin/U-2-Net)
+```bash
+git clone https://github.com/PrasannaPulakurthi/MMD-AdversarialNAS.git
+```
 
 #### 2. Generate Masks
 
