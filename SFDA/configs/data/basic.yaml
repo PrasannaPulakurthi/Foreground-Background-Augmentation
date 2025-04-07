@@ -1,15 +1,15 @@
 data_root: "datasets/"
-dataset: "domainnet-126"
+dataset: "PACS"
 train_ratio: 0.9      # ratio of training data used in source training
 source_domains:
-  - "real"
+  - "photo"
 target_domains:
-  - "sketch"
+  - "art_painting"
 ttd: false
 test_target_domain:
-  - "sketch"
+  - "art_painting"
 pl_list: null         # cached initial pseudo labels to save time
-aug_type: "moco-v2"   # used in TTA contrastive learning ["moco-v2, shuffle_patch_mix"]
+aug_type: "moco-v2"   # used in TTA contrastive learning ["moco-v2, ours"]
 
 batch_size: 128
 workers: 4

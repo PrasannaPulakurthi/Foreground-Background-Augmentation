@@ -1,4 +1,4 @@
 arch: "resnet50"
 bottleneck_dim: 256
 weight_norm_dim: 0   # refers to Weight Normalization layer
-act: "ReLU" # ReLU & PMish
+act: "ReLU" # ReLU 
