@@ -1,7 +1,7 @@
 # <p align="center"> Foreground Background Augmentation </p>
 
 Code for our 2025 paper "**Effective dual-region augmentation for reduced reliance on large amounts of labeled data**,"
-by [Prasanna Reddy Pulakurthi](https://www.prasannapulakurthi.com/), [Majid Rabbani](https://www.rit.edu/directory/mxreee-majid-rabbani), [Celso M. de Melo](https://celsodemelo.net/), [Sohail A. Dianat](https://www.rit.edu/directory/sadeee-sohail-dianat), and [Raghuveer Rao](https://ieeexplore.ieee.org/author/37281258600).
+by [Prasanna Reddy Pulakurthi](https://www.prasannapulakurthi.com/), [Majid Rabbani](https://www.rit.edu/directory/mxreee-majid-rabbani), [Celso M. de Melo](https://celsodemelo.net/), [Sohail A. Dianat](https://www.rit.edu/directory/sadeee-sohail-dianat), and [Raghuveer Rao](https://ieeexplore.ieee.org/author/37281258600). [[PDF]](https://arxiv.org/abs/2504.13077)
 
 **Keywords:** Data Augmentation, Classification, Source-Free Domain Adaptation, Person Re-Identification
 
