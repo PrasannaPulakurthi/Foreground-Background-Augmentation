@@ -4,9 +4,7 @@
 
 ### Installation
 
-To set up the environment and baseline code, follow the installation guide provided in the original repository:
-
-[AdaContrast](https://github.com/DianCh/AdaContrast)
+To set up the environment and baseline code, follow the installation guide provided in the original repository: [AdaContrast](https://github.com/DianCh/AdaContrast)
 
 ### Download and Organize the PACS Dataset
 
