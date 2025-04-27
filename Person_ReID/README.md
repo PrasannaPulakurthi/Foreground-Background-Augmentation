@@ -4,9 +4,7 @@
 
 ### Installation
 
-To set up the environment and baseline code, follow the installation guide provided in the original repository:
-
-[Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch)
+To set up the environment and baseline code, follow the installation guide provided in the original repository: [Person_reID_baseline_pytorch](https://github.com/layumi/Person_reID_baseline_pytorch)
 
 
 ### Mask Generation
