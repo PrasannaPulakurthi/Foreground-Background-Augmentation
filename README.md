@@ -56,11 +56,12 @@ We evaluate our augmentation strategy across different backbones (ResNet-18 and 
 If you find this work useful for your research, please cite:
 
 ```bibtex
-@misc{pulakurthi2024effective,
-  title={Effective dual-region augmentation for reduced reliance on large amounts of labeled data},
-  author={Prasanna Pulakurthi and Majid Rabbani and Celso M. de Melo and Sohail A. Dianat and Raghuveer Rao},
-  year={2024},
-  eprint={2504.13077},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV}
+@misc{pulakurthi2025effectivedualregionaugmentationreduced,
+      title={Effective Dual-Region Augmentation for Reduced Reliance on Large Amounts of Labeled Data}, 
+      author={Prasanna Reddy Pulakurthi and Majid Rabbani and Celso M. de Melo and Sohail A. Dianat and Raghuveer M. Rao},
+      year={2025},
+      eprint={2504.13077},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2504.13077}, 
 }
