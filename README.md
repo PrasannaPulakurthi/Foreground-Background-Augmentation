@@ -42,7 +42,7 @@ Evaluations on the PACS dataset (SFDA) and Market-1501, DukeMTMC-reID datasets (
 We apply random patch noise to the foreground and spatial shuffling to the background to create diverse augmented images.
 
 <p align="center">
-  <img src="assets/examples_2.png" alt="Foreground-Background Augmentation Examples" width="800"/>
+  <img src="assets/examples_2.png" alt="Foreground-Background Augmentation Examples" width="700"/>
 </p>
 
 <p align="center"><i>Step-by-step illustration of the Foreground-Background Augmentation method: Input Images → U2Net Mask Extraction → Foreground Patch Noise → Background Patch Shuffle → Final Augmented Output.</i></p>
