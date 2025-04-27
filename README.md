@@ -1,59 +1,95 @@
-# <p align="center"> Foreground Background Augmentation </p>
+# <p align="center">Foreground-Background Augmentation</p>
 
-[![arXiv](https://img.shields.io/badge/arXiv-2504.13077-b31b1b.svg)](https://arxiv.org/abs/2504.13077)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<p align="center">
+  <a href="https://arxiv.org/abs/2504.13077"><img src="https://img.shields.io/badge/arXiv-2504.13077-b31b1b.svg" alt="arXiv"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
 
-Code for our 2025 paper "**Effective dual-region augmentation for reduced reliance on large amounts of labeled data**,"
-by [Prasanna Reddy Pulakurthi](https://www.prasannapulakurthi.com/), [Majid Rabbani](https://www.rit.edu/directory/mxreee-majid-rabbani), [Celso M. de Melo](https://celsodemelo.net/), [Sohail A. Dianat](https://www.rit.edu/directory/sadeee-sohail-dianat), and [Raghuveer Rao](https://ieeexplore.ieee.org/author/37281258600). [[PDF]](https://arxiv.org/abs/2504.13077)
+---
 
-**Keywords:** Data Augmentation, Classification, Source-Free Domain Adaptation, Person Re-Identification
+Code for our 2025 paper "**Effective Dual-Region Augmentation for Reduced Reliance on Large Amounts of Labeled Data**,"  
+by [Prasanna Reddy Pulakurthi](https://www.prasannapulakurthi.com/), [Majid Rabbani](https://www.rit.edu/directory/mxreee-majid-rabbani), [Celso M. de Melo](https://celsodemelo.net/), [Sohail A. Dianat](https://www.rit.edu/directory/sadeee-sohail-dianat), and [Raghuveer Rao](https://ieeexplore.ieee.org/author/37281258600).  
+[[PDF]](https://arxiv.org/abs/2504.13077)
 
-This paper introduces a novel dual-region augmentation approach designed to reduce reliance on large-scale labeled datasets while improving model robustness and adaptability across diverse computer vision tasks, including source-free domain adaptation (SFDA) and person re-identification (ReID). Our method performs targeted data transformations by applying random noise perturbations to foreground objects and spatially shuffling background patches. This effectively increases the diversity of the training data, improving model robustness and generalization. Evaluations on the PACS dataset for SFDA demonstrate that our augmentation strategy consistently outperforms existing methods, achieving significant accuracy improvements in both single-target and multi-target adaptation settings. By augmenting training data through structured transformations, our method enables model generalization across domains, providing a scalable solution for reducing reliance on manually annotated datasets. Furthermore, experiments on Market-1501 and DukeMTMC-reID datasets validate the effectiveness of our approach for person ReID, surpassing traditional augmentation techniques.
+**Keywords:** Data Augmentation, Classification, Source-Free Domain Adaptation (SFDA), Person Re-Identification (ReID)
 
-![examples](assets/examples.png)
+---
 
-## Method
-![method](assets/method.png)
+## 🧠 Overview
+
+We introduce a novel **dual-region augmentation** approach that reduces reliance on large-scale labeled datasets while improving model robustness across diverse computer vision tasks.
+
+Our method applies:
+- **Random noise perturbations** to foreground objects.
+- **Spatial shuffling** of background patches.
+
+This structured augmentation improves model generalization and robustness without requiring additional supervision.
+
+Evaluations on the PACS dataset (SFDA) and Market-1501, DukeMTMC-reID datasets (ReID) show **consistent improvements over existing methods** across single-target and multi-target settings.
+
+---
+
+## 🎯 Method Overview
+
+<p align="center">
+  <img src="assets/method.png" alt="Method Overview" width="700"/>
+</p>
+
 <p align="center"><i>Overall pipeline of the proposed Foreground-Background Augmentation method.</i></p>
 
+---
 
-## Applications
+## ✨ Visual Examples
 
-### Source-Free Domain Adaptation
-Implementation details and training scripts for SFDA experiments can be found in [`./SFDA/`](./SFDA/).
+<p align="center">
+  <img src="assets/examples.png" alt="Augmentation Examples" width="700"/>
+</p>
 
-### Person Re-Identification
-Implementation details and training scripts for ReID experiments can be found in [`./Person_ReID/`](./Person_ReID/).
+<p align="center"><i>Examples of foreground noise and background patch shuffling augmentations.</i></p>
 
-## Results
+---
 
-Our Foreground-Background Augmentation method achieves strong performance on both Source-Free Domain Adaptation (SFDA) and Person Re-Identification (ReID) benchmarks.
+## 📂 Applications
+
+### Source-Free Domain Adaptation (SFDA)
+Implementation details and training scripts are available in [`./SFDA/`](./SFDA/).
+
+### Person Re-Identification (ReID)
+Implementation details and training scripts are available in [`./Person_ReID/`](./Person_ReID/).
+
+---
+
+## 📈 Results
+
+Our method achieves **state-of-the-art performance** across Source-Free Domain Adaptation and Person ReID benchmarks.
 
 ### Source-Free Domain Adaptation (SFDA) - PACS Dataset
 
-We evaluate on the PACS dataset for both single-target and multi-target domain adaptation. Our method outperforms existing source-free domain adaptation approaches.
+We evaluate on the PACS dataset for both single-target and multi-target domain adaptation.
 
 <p align="center">
   <img src="assets/SFDA.png" alt="SFDA Results" width="800"/>
 </p>
 
-<p align="center"><i>Classification accuracy (%) for SFDA on the PACS dataset. Our method achieves the highest accuracy across single-target and multi-target settings.</i></p>
+<p align="center"><i>Classification accuracy (%) on PACS dataset. Our method achieves the highest accuracy across both settings.</i></p>
 
 ---
 
-### Person Re-Identification (ReID) - Market-1501 and DukeMTMC-reID Datasets
+### Person Re-Identification (ReID) - Market-1501 and DukeMTMC-reID
 
-We evaluate our augmentation strategy across different backbones (ResNet-18 and EfficientNet-b4) and show consistent improvements over baseline and other augmentation strategies.
+We evaluate across ResNet-18 and EfficientNet-b4 backbones, consistently outperforming baselines and existing augmentation techniques.
 
 <p align="center">
   <img src="assets/Person-reid.png" alt="Person ReID Results" width="800"/>
 </p>
 
-<p align="center"><i>Comparison of person ReID performance on Market-1501 and DukeMTMC-reID datasets. Our augmentation method achieves the best performance across all evaluated metrics.</i></p>
+<p align="center"><i>Person ReID performance on Market-1501 and DukeMTMC-reID datasets. Our augmentation strategy achieves superior results across all metrics.</i></p>
 
+---
 
-## Citation
-If you find this work useful for your research, please cite:
+## 📝 Citation
+
+If you find this work useful, please cite:
 
 ```bibtex
 @misc{pulakurthi2025effectivedualregionaugmentationreduced,
