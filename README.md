@@ -19,3 +19,8 @@ Find more information in `./SFDA/`
 
 ### Person Re-Identification
 Find more information in `./Person_ReID/`
+
+## Citation
+If you find this work useful for your research, please cite:
+
+
