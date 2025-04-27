@@ -2,11 +2,11 @@
 
 ## Getting Started
 
-### 📦 Installation
+### Installation
 
 To set up the environment and baseline code, follow the installation guide provided in the original repository:
 
-🔗 [AdaContrast](https://github.com/DianCh/AdaContrast)
+[AdaContrast](https://github.com/DianCh/AdaContrast)
 
 ### Download and Organize the PACS Dataset
 
@@ -49,7 +49,7 @@ Source training instructions are present in the `scripts_win/train_PACS_source.s
 Single and Multi-target training instructions are present in the `scripts_win/train_PACS_target.sh` file. 
 
 
-## 📁 Codebase
+## Codebase
 
 1. Baseline Code: [AdversarialNAS](https://github.com/chengaopro/AdversarialNAS) ![GitHub stars](https://img.shields.io/github/stars/chengaopro/AdversarialNAS.svg?style=flat&label=Star)
 
