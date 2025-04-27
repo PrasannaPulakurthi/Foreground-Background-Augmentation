@@ -14,7 +14,7 @@ Code for our 2025 paper "**Effective Dual-Region Augmentation for Reduced Relian
 
 ---
 
-## 🧠 Overview
+## Overview
 
 We introduce a novel **dual-region augmentation** approach that reduces reliance on large-scale labeled datasets while improving model robustness across diverse computer vision tasks.
 
@@ -28,7 +28,7 @@ Evaluations on the PACS dataset (SFDA) and Market-1501, DukeMTMC-reID datasets (
 
 ---
 
-## 🎯 Method Overview
+## Method Overview
 
 <p align="center">
   <img src="assets/method.png" alt="Method Overview" width="700"/>
@@ -38,7 +38,7 @@ Evaluations on the PACS dataset (SFDA) and Market-1501, DukeMTMC-reID datasets (
 
 ---
 
-## ✨ Visual Examples
+## Visual Examples
 
 We apply random patch noise to the foreground and spatial shuffling to the background to create diverse augmented images.
 
@@ -50,7 +50,7 @@ We apply random patch noise to the foreground and spatial shuffling to the backg
 
 ---
 
-## 📂 Applications
+## Applications
 
 Our augmentation method can be applied across a variety of tasks, including Source-Free Domain Adaptation (SFDA) and Person Re-Identification (ReID).
 
@@ -68,7 +68,7 @@ Implementation details and training scripts are available in [`./Person_ReID/`](
 
 ---
 
-## 📈 Results
+## Results
 
 Our method achieves **state-of-the-art performance** across Source-Free Domain Adaptation and Person ReID benchmarks.
 
@@ -96,7 +96,7 @@ We evaluate across ResNet-18 and EfficientNet-b4 backbones, consistently outperf
 
 ---
 
-## 📝 Citation
+## Citation
 
 If you find this work useful, please cite:
 
