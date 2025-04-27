@@ -14,16 +14,53 @@ This paper introduces a novel dual-region augmentation approach designed to redu
 
 ## Method
 ![method](assets/method.png)
+<p align="center"><i>Overall pipeline of the proposed Foreground-Background Augmentation method.</i></p>
+
 
 ## Applications
 
 ### Source-Free Domain Adaptation
-Find more information in `./SFDA/`
+Implementation details and training scripts for SFDA experiments can be found in [`./SFDA/`](./SFDA/).
 
 ### Person Re-Identification
-Find more information in `./Person_ReID/`
+Implementation details and training scripts for ReID experiments can be found in [`./Person_ReID/`](./Person_ReID/).
+
+## Results
+
+Our Foreground-Background Augmentation method achieves strong performance on both Source-Free Domain Adaptation (SFDA) and Person Re-Identification (ReID) benchmarks.
+
+### Source-Free Domain Adaptation (SFDA) - PACS Dataset
+
+We evaluate on the PACS dataset for both single-target and multi-target domain adaptation. Our method outperforms existing source-free domain adaptation approaches.
+
+<p align="center">
+  <img src="assets/SFDA.png" alt="SFDA Results" width="800"/>
+</p>
+
+<p align="center"><i>Classification accuracy (%) for SFDA on the PACS dataset. Our method achieves the highest accuracy across single-target and multi-target settings.</i></p>
+
+---
+
+### Person Re-Identification (ReID) - Market-1501 and DukeMTMC-reID Datasets
+
+We evaluate our augmentation strategy across different backbones (ResNet-18 and EfficientNet-b4) and show consistent improvements over baseline and other augmentation strategies.
+
+<p align="center">
+  <img src="assets/Person-reid.png" alt="Person ReID Results" width="800"/>
+</p>
+
+<p align="center"><i>Comparison of person ReID performance on Market-1501 and DukeMTMC-reID datasets. Our augmentation method achieves the best performance across all evaluated metrics.</i></p>
+
 
 ## Citation
 If you find this work useful for your research, please cite:
 
-
+```bibtex
+@misc{pulakurthi2024effective,
+  title={Effective dual-region augmentation for reduced reliance on large amounts of labeled data},
+  author={Prasanna Pulakurthi and Majid Rabbani and Celso M. de Melo and Sohail A. Dianat and Raghuveer Rao},
+  year={2024},
+  eprint={2504.13077},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV}
+}
