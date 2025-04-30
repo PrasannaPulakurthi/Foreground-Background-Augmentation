@@ -6,8 +6,8 @@
     <img src="https://img.shields.io/badge/Papers%20with%20Code-Dual--Region%20Augmentation-blue" alt="Papers with Code">
   </a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-  <a href="https://visitor-badge.laobi.icu/badge?page_id=ClimBin/RestorMixer">
-    <img src="https://visitor-badge.laobi.icu/badge?page_id=ClimBin/RestorMixer" alt="visitors">
+  <a href="https://visitor-badge.laobi.icu/badge?page_id=PrasannaPulakurthi/Foreground-Background-Augmentation">
+    <img src="https://visitor-badge.laobi.icu/badge?page_id=PrasannaPulakurthi/Foreground-Background-Augmentation" alt="visitors">
   </a>
 </p>
 
