@@ -1,4 +1,4 @@
-# <p align="center">Dual-Region Augmentation (DRA)</p>
+# <p align="center">Dual-Region Foreground-Background Augmentation (DRA)</p>
 
 <p align="center">
   <a href="https://arxiv.org/abs/2504.13077"><img src="https://img.shields.io/badge/arXiv-2504.13077-b31b1b.svg" alt="arXiv"></a>
