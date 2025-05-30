@@ -80,7 +80,7 @@ Our method achieves **state-of-the-art performance** across Source-Free Domain A
 We evaluate on the PACS dataset for both single-target and multi-target domain adaptation.
 
 <p align="center">
-  <img src="assets/SFDA.png" alt="SFDA Results" width="800"/>
+  <img src="assets/SFDA.png" alt="SFDA Results" width="500"/>
 </p>
 
 <p align="center"><i>Classification accuracy (%) on PACS dataset. Our method achieves the highest accuracy across both settings.</i></p>
@@ -92,7 +92,7 @@ We evaluate on the PACS dataset for both single-target and multi-target domain a
 We evaluate across ResNet-18 and EfficientNet-b4 backbones, consistently outperforming baselines and existing augmentation techniques.
 
 <p align="center">
-  <img src="assets/Person-reid.png" alt="Person ReID Results" width="800"/>
+  <img src="assets/Person-reid.png" alt="Person ReID Results" width="700"/>
 </p>
 
 <p align="center"><i>Person ReID performance on Market-1501 and DukeMTMC-reID datasets. Our augmentation strategy achieves superior results across all metrics.</i></p>
