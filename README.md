@@ -4,9 +4,6 @@
   <a href="https://arxiv.org/abs/2504.13077"><img src="https://img.shields.io/badge/arXiv-2504.13077-b31b1b.svg" alt="arXiv"></a>
   <a href="https://paperswithcode.com/paper/effective-dual-region-augmentation-for"><img src="https://img.shields.io/badge/Papers%20with%20Code-Dual--Region%20Augmentation-blue" alt="Papers with Code"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-  <a href="https://visitor-badge.laobi.icu/badge?page_id=PrasannaPulakurthi/Foreground-Background-Augmentation">
-    <img src="https://visitor-badge.laobi.icu/badge?page_id=PrasannaPulakurthi/Foreground-Background-Augmentation" alt="visitors">
-  </a>
 </p>
 
 ---
