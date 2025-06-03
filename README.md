@@ -102,12 +102,17 @@ We evaluate across ResNet-18 and EfficientNet-b4 backbones, consistently outperf
 If you find this work useful, please cite:
 
 ```bibtex
-@misc{pulakurthi2025effectivedualregionaugmentationreduced,
-      title={Effective Dual-Region Augmentation for Reduced Reliance on Large Amounts of Labeled Data}, 
-      author={Prasanna Reddy Pulakurthi and Majid Rabbani and Celso M. de Melo and Sohail A. Dianat and Raghuveer M. Rao},
-      year={2025},
-      eprint={2504.13077},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2504.13077}, 
+@inproceedings{10.1117/12.3058627,
+author = {Prasanna Reddy Pulakurthi and Majid Rabbani and Celso M. De Melo and Sohail A. Dianat and Raghuveer M. Rao},
+title = {{Effective dual-region augmentation for reduced reliance on large amounts of labeled data}},
+volume = {13459},
+booktitle = {Synthetic Data for Artificial Intelligence and Machine Learning: Tools, Techniques, and Applications III},
+editor = {Kimberly E. Manser and Christopher L. Howell and Raghuveer M. Rao and Celso De Melo and Keith F. Prussing},
+organization = {International Society for Optics and Photonics},
+publisher = {SPIE},
+pages = {134590I},
+keywords = {Data Augmentation, Classification, Source-Free Domain Adaptation, Person Re-Identification},
+year = {2025},
+doi = {10.1117/12.3058627},
+URL = {https://doi.org/10.1117/12.3058627}
 }
