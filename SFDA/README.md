@@ -50,4 +50,5 @@ Single and Multi-target training instructions are present in the `scripts_win/tr
 ## Codebase
 
 1. Baseline Code: [AdversarialNAS](https://github.com/chengaopro/AdversarialNAS) ![GitHub stars](https://img.shields.io/github/stars/chengaopro/AdversarialNAS.svg?style=flat&label=Star)
+2. Related Work: [SPM](https://github.com/PrasannaPulakurthi/SPM) ![GitHub stars](https://img.shields.io/github/stars/PrasannaPulakurthi/SPM.svg?style=flat&label=Star)
 
