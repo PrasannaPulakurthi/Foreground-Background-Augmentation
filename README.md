@@ -3,7 +3,8 @@
 <p align="center">
   <a href="https://doi.org/10.1117/12.3058627"><img src="https://img.shields.io/badge/SPIE-2025-yellow.svg" alt="SPIE 2025"></a>
   <a href="https://arxiv.org/abs/2504.13077"><img src="https://img.shields.io/badge/arXiv-2504.13077-b31b1b.svg" alt="arXiv"></a>
-  <a href="https://paperswithcode.com/paper/effective-dual-region-augmentation-for"><img src="https://img.shields.io/badge/Papers%20with%20Code-Dual--Region%20Augmentation-blue" alt="Papers with Code"></a>
+  <a href="https://paperswithcode.com/paper/effective-dual-region-augmentation-for"><img src="https://img.shields.io/badge/Papers%20with%20Code-DRA-blue" alt="Papers with Code"></a>
+  <a href="https://huggingface.co/papers/2504.13077"><img src="https://img.shields.io/badge/Hugging Face-DRA-white.svg" alt="arXiv"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
