@@ -103,7 +103,7 @@ We evaluate across ResNet-18 and EfficientNet-b4 backbones, consistently outperf
 If you find this work useful, please cite:
 
 ```bibtex
-@inproceedings{10.1117/12.3058627,
+@inproceedings{pulakurthi2025effective,
 author = {Prasanna Reddy Pulakurthi and Majid Rabbani and Celso M. De Melo and Sohail A. Dianat and Raghuveer M. Rao},
 title = {{Effective dual-region augmentation for reduced reliance on large amounts of labeled data}},
 volume = {13459},
