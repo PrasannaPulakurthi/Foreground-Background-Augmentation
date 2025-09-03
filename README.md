@@ -16,6 +16,14 @@ Code for our 2025 paper "**Effective Dual-Region Augmentation for Reduced Relian
 
 ---
 
+## Demo - [[Hugging Face Spaces]](https://huggingface.co/spaces/prasannareddyp/DR-Augmentation)
+
+An interactive demo for generating SPM augmentation.
+
+![HF Spaces](assets/HF_spaces.png)
+
+---
+
 ## Overview
 
 We introduce a novel **dual-region augmentation** approach that reduces reliance on large-scale labeled datasets while improving model robustness across diverse computer vision tasks.
