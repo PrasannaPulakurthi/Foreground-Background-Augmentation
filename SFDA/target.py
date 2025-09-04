@@ -13,9 +13,6 @@ from torch.utils.data.distributed import DistributedSampler
 import wandb
 import numpy as np
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 from classifier import Classifier
 from image_list import ImageList
 from moco.builder import AdaMoCo
