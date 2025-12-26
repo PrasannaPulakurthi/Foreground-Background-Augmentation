@@ -112,16 +112,11 @@ If you find this work useful, please cite:
 
 ```bibtex
 @inproceedings{pulakurthi2025effective,
-author = {Prasanna Reddy Pulakurthi and Majid Rabbani and Celso M. De Melo and Sohail A. Dianat and Raghuveer M. Rao},
-title = {{Effective dual-region augmentation for reduced reliance on large amounts of labeled data}},
-volume = {13459},
-booktitle = {Synthetic Data for Artificial Intelligence and Machine Learning: Tools, Techniques, and Applications III},
-editor = {Kimberly E. Manser and Christopher L. Howell and Raghuveer M. Rao and Celso De Melo and Keith F. Prussing},
-organization = {International Society for Optics and Photonics},
-publisher = {SPIE},
-pages = {134590I},
-keywords = {Data Augmentation, Classification, Source-Free Domain Adaptation, Person Re-Identification},
-year = {2025},
-doi = {10.1117/12.3058627},
-URL = {https://doi.org/10.1117/12.3058627}
+  title={Effective dual-region augmentation for reduced reliance on large amounts of labeled data},
+  author={Pulakurthi, Prasanna Reddy and Rabbani, Majid and De Melo, Celso M and Dianat, Sohail A and Rao, Raghuveer M},
+  booktitle={Synthetic Data for Artificial Intelligence and Machine Learning: Tools, Techniques, and Applications III},
+  volume={13459},
+  pages={210--218},
+  year={2025},
+  organization={SPIE}
 }
