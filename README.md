@@ -118,5 +118,7 @@ If you find this work useful, please cite:
   volume={13459},
   pages={210--218},
   year={2025},
-  organization={SPIE}
+  organization={SPIE},
+  doi = {10.1117/12.3058627},
+  URL = {https://doi.org/10.1117/12.3058627}
 }
